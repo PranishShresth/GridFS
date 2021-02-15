@@ -3,6 +3,7 @@ const {
   downloadFileHelper,
   findFileById,
 } = require("./../utils/grid_fs");
+const auth = require("./../config/auth");
 
 module.exports = {
   uploadFile: async (req, res) => {
@@ -16,7 +17,6 @@ module.exports = {
     }
   },
 
-  //httpL//localhost:5000/api/files/123lsa;
   downloadFile: async (req, res) => {
     try {
       const fileId = req.params.id;
@@ -32,6 +32,8 @@ module.exports = {
         });
         downloadFileHelper(fileId).pipe(res);
       }
-    } catch (err) {}
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
   },
 };
