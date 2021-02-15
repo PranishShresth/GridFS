@@ -23,6 +23,16 @@ module.exports = {
       }
 
       const stream = bufferToStream(file.buffer);
-    } catch (err) {}
+      stream
+        .pipe(uploadStream)
+        .on("finish", function () {
+          console.log("File Uploaded");
+        })
+        .on("error", function (err) {
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
   },
 };
