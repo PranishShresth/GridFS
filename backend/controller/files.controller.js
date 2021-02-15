@@ -1,4 +1,8 @@
-const { uploadFileHelper } = require("./../utils/grid_fs");
+const {
+  uploadFileHelper,
+  downloadFileHelper,
+  findFileById,
+} = require("./../utils/grid_fs");
 
 module.exports = {
   uploadFile: async (req, res) => {
@@ -10,5 +14,24 @@ module.exports = {
     } catch (err) {
       res.status(500).json({ msg: err.message });
     }
+  },
+
+  //httpL//localhost:5000/api/files/123lsa;
+  downloadFile: async (req, res) => {
+    try {
+      const fileId = req.params.id;
+
+      const file = await findFileById(fileId);
+      const fileArray = await file.toArray();
+      if (fileArray.length) {
+        res.status(200);
+        res.set({
+          "Content-Length": fileArray[0].length,
+          "Content-Disposition":
+            "attachment; filename =" + fileArray[0].filename,
+        });
+        downloadFileHelper(fileId).pipe(res);
+      }
+    } catch (err) {}
   },
 };

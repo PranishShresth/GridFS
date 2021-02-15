@@ -10,9 +10,10 @@ module.exports = {
         bucketName: "files",
       });
 
-      let uploadStream = await bucket.openUploadStream(file.fileName, {
+      let uploadStream = await bucket.openUploadStream(file.originalname, {
         metadata: {
           user: "John",
+          contentType: file.mimeType,
         },
       });
       function bufferToStream(binary) {
@@ -34,5 +35,19 @@ module.exports = {
     } catch (err) {
       console.log(err);
     }
+  },
+
+  findFileById: (fileId) => {
+    let db = mongoose.connection.db;
+    let bucket = new mongoose.mongo.GridFSBucket(db, { bucketName: "files" });
+    let id = new mongoose.mongo.ObjectID(fileId);
+    return bucket.find({ _id: id });
+  },
+
+  downloadFileHelper: (fileID) => {
+    let db = mongoose.connection.db;
+    let bucket = new mongoose.mongo.GridFSBucket(db, { bucketName: "files" });
+    let id = new mongoose.mongo.ObjectID(fileID);
+    return bucket.openDownloadStream(id);
   },
 };
