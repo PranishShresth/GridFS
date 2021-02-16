@@ -6,17 +6,28 @@ const SignUp = () => {
   return (
     <div>
       <form>
-        <TextField required label="Email" name="email"></TextField>
-        <TextField required label="Username" name="username"></TextField>
-        <TextField required label="Password" name="password"></TextField>
+        <TextField required label="Email" name="email" fullWidth></TextField>
+        <TextField
+          required
+          label="Username"
+          name="username"
+          fullWidth
+        ></TextField>
+        <TextField
+          required
+          label="Password"
+          name="password"
+          fullWidth
+        ></TextField>
         <TextField
           required
           label="Repeat Password"
           name="repeat_password"
+          fullWidth
         ></TextField>
 
         <Button type="submit" variant="standard">
-          Log in
+          Sign Up
         </Button>
       </form>
     </div>

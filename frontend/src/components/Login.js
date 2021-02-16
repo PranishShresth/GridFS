@@ -6,8 +6,13 @@ const Login = () => {
   return (
     <div>
       <form>
-        <TextField required label="Email" name="email"></TextField>
-        <TextField required label="Password" name="password"></TextField>
+        <TextField required label="Email" name="email" fullWidth></TextField>
+        <TextField
+          required
+          label="Password"
+          name="password"
+          fullWidth
+        ></TextField>
         <Button type="submit" variant="standard">
           Log in
         </Button>

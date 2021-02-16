@@ -6,7 +6,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-
+import { Login, SignUp } from "./../../components";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -37,10 +37,16 @@ function a11yProps(index) {
 }
 
 const useStyles = makeStyles((theme) => ({
+  registrationContainer: {
+    width: "100%",
+  },
   root: {
     backgroundColor: theme.palette.background.paper,
     width: 500,
     margin: "0 auto",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
 }));
 
@@ -53,32 +59,30 @@ export default function FullWidthTabs() {
     setValue(newValue);
   };
 
-  const handleChangeIndex = (index) => {
-    setValue(index);
-  };
-
   return (
-    <div className={classes.root}>
-      <AppBar position="static" color="default">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="fullWidth"
-          aria-label=""
-        >
-          <Tab label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
-        </Tabs>
-      </AppBar>
+    <div className={classes.registrationContainer}>
+      <div className={classes.root}>
+        <AppBar position="static" color="default">
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            variant="fullWidth"
+            aria-label=""
+          >
+            <Tab label="Login" {...a11yProps(0)} />
+            <Tab label="Sign Up" {...a11yProps(1)} />
+          </Tabs>
+        </AppBar>
 
-      <TabPanel value={value} index={0} dir={theme.direction}>
-        Login
-      </TabPanel>
-      <TabPanel value={value} index={1} dir={theme.direction}>
-        Sign Up
-      </TabPanel>
+        <TabPanel value={value} index={0} dir={theme.direction}>
+          <Login />
+        </TabPanel>
+        <TabPanel value={value} index={1} dir={theme.direction}>
+          <SignUp />
+        </TabPanel>
+      </div>
     </div>
   );
 }
