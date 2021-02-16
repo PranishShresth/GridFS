@@ -7,9 +7,11 @@ const {
   uploadFile,
   downloadFile,
   deleteFile,
+  getAllFiles,
 } = require("./../controller/files.controller");
 
 router.post("/upload", auth, upload.single("file"), uploadFile);
-router.post("/download/:id", downloadFile);
+router.post("/download/:id", auth, downloadFile);
 router.delete("/delete/:id", auth, deleteFile);
+router.get("/getFiles", auth, getAllFiles);
 module.exports = router;
