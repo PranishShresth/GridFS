@@ -2,6 +2,7 @@ const {
   uploadFileHelper,
   downloadFileHelper,
   findFileById,
+  deleteFileHelper,
 } = require("./../utils/grid_fs");
 const auth = require("./../config/auth");
 
@@ -34,6 +35,15 @@ module.exports = {
       }
     } catch (err) {
       return res.status(500).json({ msg: err.message });
+    }
+  },
+  deleteFile: (req, res) => {
+    try {
+      const { id } = req.params;
+      deleteFileHelper(id);
+      return res.status(200).json({ msg: "File successfully deleted" });
+    } catch (err) {
+      return res.status(500).json({ msg: "Internal Server Error" });
     }
   },
 };

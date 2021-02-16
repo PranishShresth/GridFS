@@ -16,12 +16,12 @@ const auth = (req, res, next) => {
 
     //verifying jwt token
     jwt.verify(token, jwt_token, function (err, user) {
-      if (!err) {
-        //setting the req.user to id of the user
-        req.user = user._id;
-        next();
+      if (err) {
+        return res.status(400).json({ msg: "Token not valid" });
       }
-      return res.status(400).json({ msg: "Token not valid" });
+      //setting the req.user to id of the user
+      req.user = user._id;
+      next();
     });
   } else {
     res.status(401).json({ msg: "Unauthorized" });

@@ -6,8 +6,10 @@ const auth = require("./../config/auth");
 const {
   uploadFile,
   downloadFile,
+  deleteFile,
 } = require("./../controller/files.controller");
 
-router.post("/upload", upload.single("file"), uploadFile);
+router.post("/upload", auth, upload.single("file"), uploadFile);
 router.post("/download/:id", downloadFile);
+router.delete("/delete/:id", auth, deleteFile);
 module.exports = router;
