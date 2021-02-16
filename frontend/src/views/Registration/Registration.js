@@ -39,10 +39,15 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
   registrationContainer: {
     width: "100%",
+    height: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
   root: {
     backgroundColor: theme.palette.background.paper,
     width: 500,
+    height: 500,
     margin: "0 auto",
     [theme.breakpoints.down("sm")]: {
       width: "100%",

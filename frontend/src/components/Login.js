@@ -13,7 +13,7 @@ const Login = () => {
           name="password"
           fullWidth
         ></TextField>
-        <Button type="submit" variant="standard">
+        <Button type="submit" variant="contained" color="primary">
           Log in
         </Button>
       </form>
