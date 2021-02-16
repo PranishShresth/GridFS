@@ -5,7 +5,6 @@ const {
   deleteFileHelper,
   getFileByUser,
 } = require("./../utils/grid_fs");
-const auth = require("./../config/auth");
 
 module.exports = {
   uploadFile: async (req, res) => {

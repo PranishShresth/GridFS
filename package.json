@@ -1,0 +1,24 @@
+{
+  "name": "grid-fs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"npm start --prefix frontend\" \"npm start --prefix backend\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PranishShresth/GridFS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PranishShresth/GridFS/issues"
+  },
+  "homepage": "https://github.com/PranishShresth/GridFS#readme",
+  "dependencies": {
+    "concurrently": "^5.3.0"
+  }
+}
