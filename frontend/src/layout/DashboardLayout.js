@@ -11,11 +11,12 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import MailIcon from "@material-ui/icons/Mail";
+import DashboardIcon from "@material-ui/icons/Dashboard";
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 
 const drawerWidth = 240;
 
@@ -68,8 +69,16 @@ function DashboardLayout(props) {
       <Divider />
       <List>
         <ListItem button>
-          <ListItemIcon></ListItemIcon>
-          <ListItemText />
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Dashboard"} />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <CloudUploadIcon />
+          </ListItemIcon>
+          <ListItemText primary={"File Upload"} />
         </ListItem>
       </List>
     </div>

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { loginUser } from "../utils/api";
+import { UserContext } from "../context/UserContext";
 import { useSnackbar } from "notistack";
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
 const Login = () => {
   const [loginval, setLoginVal] = useState(initialState);
   const { enqueueSnackbar } = useSnackbar();
+  const { setUser, user } = useContext(UserContext);
   const handleChange = (ev) => {
     ev.preventDefault();
     setLoginVal((prev) => ({
@@ -24,6 +26,8 @@ const Login = () => {
       ev.preventDefault();
       const resp = await loginUser(loginval);
       if (resp.status === 200) {
+        setUser({ user: resp.data.user, isLoggedin: true });
+        localStorage.setItem("token", resp.data.token);
         enqueueSnackbar("Login Successful", {
           variant: "success",
         });
