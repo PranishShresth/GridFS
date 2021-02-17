@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { loginUser } from "../utils/api";
@@ -41,6 +41,12 @@ const Login = () => {
       });
     }
   };
+
+  useEffect(() => {
+    if (user.isLoggedIn) {
+      history.push("/dashboard");
+    }
+  }, [history, user]);
   return (
     <div>
       <form onSubmit={handleSubmit}>
