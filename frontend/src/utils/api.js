@@ -1,5 +1,11 @@
 import axios from "axios";
 
+const token = localStorage.getItem("token");
+const config = {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+};
 const registerUser = async (payload) => {
   try {
     const response = await axios.post("/api/user/register", payload);
@@ -17,4 +23,13 @@ const loginUser = async (payload) => {
     console.log(err.message);
   }
 };
-export { registerUser, loginUser };
+
+const fetchUser = async () => {
+  try {
+    const response = await axios.get("/api/user/getUser", config);
+    return response;
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+export { registerUser, loginUser, fetchUser };
