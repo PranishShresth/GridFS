@@ -17,6 +17,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import { useHistory } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -56,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
 function DashboardLayout(props) {
   const { window } = props;
   const classes = useStyles();
+  const history = useHistory();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -68,13 +70,23 @@ function DashboardLayout(props) {
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        <ListItem button>
+        <ListItem
+          button
+          onClick={() => {
+            history.push("/dashboard");
+          }}
+        >
           <ListItemIcon>
             <DashboardIcon />
           </ListItemIcon>
           <ListItemText primary={"Dashboard"} />
         </ListItem>
-        <ListItem button>
+        <ListItem
+          button
+          onClick={() => {
+            history.push("/fileUpload");
+          }}
+        >
           <ListItemIcon>
             <CloudUploadIcon />
           </ListItemIcon>

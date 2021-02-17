@@ -46,7 +46,7 @@ const Login = () => {
     if (user.isLoggedIn) {
       history.push("/dashboard");
     }
-  }, [history, user]);
+  }, [user, history]);
   return (
     <div>
       <form onSubmit={handleSubmit}>
