@@ -40,4 +40,19 @@ module.exports = {
       return res.status(500).json({ msg: err.message });
     }
   },
+  getUser: async (req, res) => {
+    try {
+      const userId = req.user;
+      const user = await User.findById(userId);
+      if (user) {
+        const payload = {
+          username: user.username,
+          _id: user._id,
+          email: user.email,
+        };
+        return res.status(200).json({ user: payload });
+      }
+      res.status(400).json({ msg: "User Not found" });
+    } catch (err) {}
+  },
 };

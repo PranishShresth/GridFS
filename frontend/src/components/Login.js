@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import { loginUser } from "../utils/api";
 import { UserContext } from "../context/UserContext";
 import { useSnackbar } from "notistack";
+import { useHistory } from "react-router-dom";
 
 const initialState = {
   username: "",
@@ -12,6 +13,7 @@ const initialState = {
 const Login = () => {
   const [loginval, setLoginVal] = useState(initialState);
   const { enqueueSnackbar } = useSnackbar();
+  const history = useHistory();
   const { setUser, user } = useContext(UserContext);
   const handleChange = (ev) => {
     ev.preventDefault();
@@ -31,6 +33,7 @@ const Login = () => {
         enqueueSnackbar("Login Successful", {
           variant: "success",
         });
+        history.push("/dashboard");
       }
     } catch (err) {
       enqueueSnackbar("Incorrect Credentials", {
