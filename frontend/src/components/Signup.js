@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { registerUser } from "../utils/api";
+import { useSnackbar } from "notistack";
 
 const initialState = {
   email: "",
@@ -11,6 +12,7 @@ const initialState = {
 };
 
 const SignUp = () => {
+  const { enqueueSnackbar } = useSnackbar();
   const [signupval, setsignUpVal] = useState(initialState);
 
   const handleChange = (ev) => {
@@ -26,8 +28,14 @@ const SignUp = () => {
     try {
       ev.preventDefault();
       const resp = await registerUser(signupval);
+      console.log(resp.data);
+      enqueueSnackbar("SignUp Successful", {
+        variant: "success",
+      });
     } catch (err) {
-      console.log(err);
+      enqueueSnackbar(err.message, {
+        variant: "error",
+      });
     }
   };
   return (
