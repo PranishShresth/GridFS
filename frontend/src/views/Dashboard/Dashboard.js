@@ -43,10 +43,9 @@ const Dashboard = () => {
   const { enqueueSnackbar } = useSnackbar();
   const getFiles = async () => {
     try {
-      const resp = await getAllFiles();
-      if (resp.status === 200) {
-        setAllFiles(resp.data);
-      }
+      const token = localStorage.getItem("token");
+      const resp = await getAllFiles(token);
+      setAllFiles(resp.data);
     } catch (err) {
       console.log(err);
     }

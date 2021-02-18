@@ -126,11 +126,7 @@ function DashboardLayout(props) {
           <Typography variant="h6" noWrap className={classes.title}>
             myDashboard
           </Typography>
-          <IconButton
-            onClick={() => {
-              handleLogOut();
-            }}
-          >
+          <IconButton onClick={handleLogOut}>
             <ExitToAppIcon style={{ color: "white" }} />
           </IconButton>
         </Toolbar>

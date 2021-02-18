@@ -41,9 +41,14 @@ const uploadFiles = async (payload) => {
     console.log(err.message);
   }
 };
-const getAllFiles = async () => {
+const getAllFiles = async (mytoken) => {
   try {
-    const response = await axios.get("/api/files/getFiles", config);
+    var configs = {
+      headers: {
+        Authorization: `Bearer ${mytoken}`,
+      },
+    };
+    const response = await axios.get("/api/files/getFiles", configs);
     return response;
   } catch (err) {
     console.log(err.message);
