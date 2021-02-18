@@ -31,7 +31,8 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 const useStyles = makeStyles({
   table: {
-    minWidth: 700,
+    minWidth: 500,
+    overflowX: "auto",
   },
 });
 
@@ -68,8 +69,18 @@ const Dashboard = () => {
   };
 
   // download
-  const handleDownload = async (id) => {
-    const resp = await downloadFile(id);
+  const handleDownload = async (id, filename) => {
+    try {
+      const resp = await downloadFile(id);
+      const url = window.URL.createObjectURL(new Blob([resp.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", filename);
+      document.body.appendChild(link);
+      link.click();
+    } catch (err) {
+      console.log(err.message);
+    }
   };
   return (
     <div>
@@ -112,7 +123,7 @@ const Dashboard = () => {
                   </IconButton>
                   <IconButton
                     onClick={() => {
-                      handleDownload(row._id);
+                      handleDownload(row._id, row.filename);
                     }}
                   >
                     <GetAppIcon />

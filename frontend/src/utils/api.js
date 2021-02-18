@@ -60,7 +60,10 @@ const deleteFile = async (id) => {
 
 const downloadFile = async (id) => {
   try {
-    const response = await axios.get(`/api/files/download/${id}`, config);
+    const response = await axios.get(`/api/files/download/${id}`, {
+      ...config,
+      responseType: "blob",
+    });
     return response;
   } catch (err) {
     console.log(err.message);
