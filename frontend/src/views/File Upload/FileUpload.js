@@ -44,9 +44,11 @@ const FileUpload = () => {
     if (files.length === 0) {
       return;
     }
-    uploadFile(files[0]).then(() => {
-      enqueueSnackbar("File successfully upload", {
-        variant: "success",
+    files.forEach((file) => {
+      uploadFile(file).then(() => {
+        enqueueSnackbar("File successfully upload", {
+          variant: "success",
+        });
       });
     });
   };

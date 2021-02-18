@@ -13,6 +13,7 @@ import Paper from "@material-ui/core/Paper";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import { useSnackbar } from "notistack";
+import mime from "mime-types";
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -32,6 +33,9 @@ const StyledTableRow = withStyles((theme) => ({
 const useStyles = makeStyles({
   table: {
     minWidth: 500,
+    overflowX: "auto",
+  },
+  tableContainer: {
     overflowX: "auto",
   },
 });
@@ -83,8 +87,8 @@ const Dashboard = () => {
   };
   return (
     <div>
-      <h1>Hi I am Dashboard</h1>
-      <TableContainer component={Paper}>
+      <h1>Welcome, {user && user.user.username}</h1>
+      <TableContainer component={Paper} className={classes.tableContainer}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
@@ -106,10 +110,10 @@ const Dashboard = () => {
                   {row.length / 1024}KB
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  {row.uploadDate}
+                  {new Date(row.uploadDate).toLocaleDateString("en-AU")}
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  {row.metadata.contentType}
+                  {mime.extension(row.metadata.contentType)}
                 </StyledTableCell>
                 <StyledTableCell align="right">{row.chunkSize}</StyledTableCell>
                 <StyledTableCell align="right">
