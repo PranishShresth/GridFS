@@ -11,6 +11,7 @@ import TableRow from "@material-ui/core/TableRow";
 import { IconButton } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import GetAppIcon from "@material-ui/icons/GetApp";
 import { useSnackbar } from "notistack";
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -54,6 +55,7 @@ const Dashboard = () => {
     getFiles();
   }, []);
 
+  // delete
   const handleDelete = async (id) => {
     const resp = await deleteFile(id);
     if (resp.status === 200) {
@@ -63,6 +65,11 @@ const Dashboard = () => {
         variant: "success",
       });
     }
+  };
+
+  // download
+  const handleDownload = async (id) => {
+    const resp = await downloadFile(id);
   };
   return (
     <div>
@@ -102,6 +109,13 @@ const Dashboard = () => {
                     }}
                   >
                     <DeleteForeverIcon />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => {
+                      handleDownload(row._id);
+                    }}
+                  >
+                    <GetAppIcon />
                   </IconButton>
                 </StyledTableCell>
               </StyledTableRow>
