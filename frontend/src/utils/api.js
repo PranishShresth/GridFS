@@ -49,4 +49,30 @@ const getAllFiles = async () => {
     console.log(err.message);
   }
 };
-export { registerUser, loginUser, fetchUser, uploadFiles, getAllFiles };
+const deleteFile = async (id) => {
+  try {
+    const response = await axios.delete(`/api/files/delete/${id}`, config);
+    return response;
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+const downloadFile = async (id) => {
+  try {
+    const response = await axios.get(`/api/files/download/${id}`, config);
+    return response;
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+export {
+  registerUser,
+  loginUser,
+  fetchUser,
+  uploadFiles,
+  getAllFiles,
+  deleteFile,
+  downloadFile,
+};
