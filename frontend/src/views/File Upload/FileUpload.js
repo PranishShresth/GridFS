@@ -88,7 +88,7 @@ const FileUpload = () => {
       {files.length > 0 &&
         files.map((file) => {
           return (
-            <div className="file">
+            <div className="file" style={{ margin: 10, width: "100%" }}>
               <Chip
                 label={`${file.name}`}
                 onDelete={handleRemove}
