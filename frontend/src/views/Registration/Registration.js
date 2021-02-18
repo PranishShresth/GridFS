@@ -41,8 +41,12 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     height: "100vh",
     display: "flex",
+    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    margin: 0,
+    padding: 0,
+    background: "linear-gradient(to right, #34e89e, #0f3443);",
   },
   root: {
     backgroundColor: theme.palette.background.paper,
@@ -52,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       width: "100%",
     },
+    borderRadius: 15,
   },
 }));
 
@@ -66,6 +71,7 @@ export default function FullWidthTabs() {
 
   return (
     <div className={classes.registrationContainer}>
+      <h1 style={{ color: "white" }}>GRID-FS DRIVE</h1>
       <div className={classes.root}>
         <AppBar position="static" color="default">
           <Tabs

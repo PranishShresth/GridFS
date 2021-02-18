@@ -3,6 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { registerUser } from "../utils/api";
 import { useSnackbar } from "notistack";
+import { makeStyles } from "@material-ui/core/styles";
 
 const initialState = {
   email: "",
@@ -10,8 +11,20 @@ const initialState = {
   username: "",
   repeat_password: "",
 };
-
+const useStyles = makeStyles((theme) => ({
+  form: {
+    "& > div": {
+      margin: "15px 0",
+    },
+  },
+  button: {
+    margin: "15px 0",
+    width: "100%",
+    background: "#009688",
+  },
+}));
 const SignUp = () => {
+  const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
   const [signupval, setsignUpVal] = useState(initialState);
 
@@ -40,7 +53,7 @@ const SignUp = () => {
   };
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={classes.form}>
         <TextField
           required
           label="Email"
@@ -72,7 +85,12 @@ const SignUp = () => {
           onChange={handleChange}
         ></TextField>
 
-        <Button type="submit" variant="contained" color="primary">
+        <Button
+          type="submit"
+          variant="contained"
+          className={classes.button}
+          color="primary"
+        >
           Sign Up
         </Button>
       </form>

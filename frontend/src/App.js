@@ -4,6 +4,7 @@ import { UserProvider } from "./context/UserContext";
 import { Registration, Dashboard, FileUpload } from "./views/index";
 import DashboardLayout from "./layout/DashboardLayout";
 import LayoutWrapper from "./layout/LayoutWrapper";
+import "./App.css";
 
 const App = () => {
   return (
