@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "./../../context/UserContext";
-import { getAllFiles } from "../../utils/api";
+import { getAllFiles, deleteFile, downloadFile } from "../../utils/api";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -8,8 +8,10 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import { IconButton } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
-
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import { useSnackbar } from "notistack";
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -36,20 +38,32 @@ const Dashboard = () => {
   const classes = useStyles();
   const { user } = useContext(UserContext);
   const [allfiles, setAllFiles] = useState([]);
-  useEffect(() => {
-    const getFiles = async () => {
-      try {
-        const resp = await getAllFiles();
-        if (resp.status === 200) {
-          setAllFiles(resp.data);
-        }
-      } catch (err) {
-        console.log(err);
+  const { enqueueSnackbar } = useSnackbar();
+  const getFiles = async () => {
+    try {
+      const resp = await getAllFiles();
+      if (resp.status === 200) {
+        setAllFiles(resp.data);
       }
-    };
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
+  useEffect(() => {
     getFiles();
   }, []);
+
+  const handleDelete = async (id) => {
+    const resp = await deleteFile(id);
+    if (resp.status === 200) {
+      getFiles();
+
+      enqueueSnackbar("Deleted Successfully", {
+        variant: "success",
+      });
+    }
+  };
   return (
     <div>
       <h1>Hi I am Dashboard</h1>
@@ -81,6 +95,15 @@ const Dashboard = () => {
                   {row.metadata.contentType}
                 </StyledTableCell>
                 <StyledTableCell align="right">{row.chunkSize}</StyledTableCell>
+                <StyledTableCell align="right">
+                  <IconButton
+                    onClick={() => {
+                      handleDelete(row._id);
+                    }}
+                  >
+                    <DeleteForeverIcon />
+                  </IconButton>
+                </StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
