@@ -32,4 +32,21 @@ const fetchUser = async () => {
     console.log(err.message);
   }
 };
-export { registerUser, loginUser, fetchUser };
+
+const uploadFiles = async (payload) => {
+  try {
+    const response = await axios.post("/api/files/upload", payload, config);
+    return response;
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+const getAllFiles = async () => {
+  try {
+    const response = await axios.get("/api/files/getFiles", config);
+    return response;
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+export { registerUser, loginUser, fetchUser, uploadFiles, getAllFiles };

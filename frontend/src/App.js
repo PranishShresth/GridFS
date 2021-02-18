@@ -12,7 +12,6 @@ const App = () => {
         <UserProvider>
           <Route exact path="/" component={Registration}></Route>
           <LayoutWrapper
-            exact
             path="/dashboard"
             component={Dashboard}
             layout={DashboardLayout}

@@ -28,7 +28,7 @@ const Login = () => {
       ev.preventDefault();
       const resp = await loginUser(loginval);
       if (resp.status === 200) {
-        setUser({ user: resp.data.user, isLoggedin: true });
+        setUser({ user: resp.data.user, isLoggedIn: true });
         localStorage.setItem("token", resp.data.token);
         enqueueSnackbar("Login Successful", {
           variant: "success",

@@ -1,5 +1,10 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Dropzone from "react-dropzone";
+import { uploadFiles } from "./../../utils/api";
+import { useSnackbar } from "notistack";
+import { Button } from "@material-ui/core";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import Chip from "@material-ui/core/Chip";
 
 const dropStyle = {
   height: "200px",
@@ -9,22 +14,84 @@ const dropStyle = {
 };
 const FileUpload = () => {
   const dropzoneRef = useRef();
+  const [files, setFiles] = useState([]);
+  const { enqueueSnackbar } = useSnackbar();
 
+  const handleDrop = (acceptedFiles) => {
+    if (acceptedFiles.length === 0) {
+      return;
+    }
+    setFiles(acceptedFiles);
+  };
+  const uploadFile = async (myfile) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", myfile);
+      const resp = await uploadFiles(formData);
+      if (resp.status === 200) {
+        setFiles([]);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleRemove = () => {
+    setFiles([]);
+  };
+  const handleFormSubmit = (ev) => {
+    ev.preventDefault();
+    if (files.length === 0) {
+      return;
+    }
+    uploadFile(files[0]);
+  };
   return (
-    <form>
-      <Dropzone ref={dropzoneRef} maxFiles={4}>
-        {({ getRootProps, getInputProps }) => (
-          <div className="container">
-            <div {...getRootProps()} style={dropStyle}>
-              <input {...getInputProps()} />
-              <p style={{ textAlign: "center" }}>
-                Drag 'n' drop some files here, or click to select files
-              </p>
+    <div>
+      <form onSubmit={handleFormSubmit}>
+        <Dropzone onDrop={handleDrop} ref={dropzoneRef} maxFiles={4}>
+          {({ getRootProps, getInputProps }) => (
+            <div className="container">
+              <div {...getRootProps()} style={dropStyle}>
+                <input {...getInputProps()} />
+                <p style={{ textAlign: "center" }}>
+                  Drag 'n' drop some files here, or click to select files
+                </p>
+              </div>
             </div>
-          </div>
-        )}
-      </Dropzone>
-    </form>
+          )}
+        </Dropzone>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            margin: "40px 0",
+          }}
+        >
+          <Button
+            style={{ textAlign: "center" }}
+            variant="contained"
+            startIcon={<CloudUploadIcon />}
+            type="submit"
+            color="default"
+          >
+            Upload Files
+          </Button>
+        </div>
+      </form>
+      {files.length > 0 &&
+        files.map((file) => {
+          return (
+            <div className="file">
+              <Chip
+                label={`${file.name}`}
+                onDelete={handleRemove}
+                color="primary"
+              />
+            </div>
+          );
+        })}
+    </div>
   );
 };
 

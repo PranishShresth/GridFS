@@ -2,7 +2,12 @@ import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
 import { UserContext } from "./../context/UserContext";
 
-const LayoutWrapper = ({ component: Component, layout: Layout, ...rest }) => {
+const LayoutWrapper = ({
+  component: Component,
+  layout: Layout,
+  location,
+  ...rest
+}) => {
   const {
     user: { isLoggedIn },
   } = useContext(UserContext);
@@ -16,7 +21,7 @@ const LayoutWrapper = ({ component: Component, layout: Layout, ...rest }) => {
       )}
     />
   ) : (
-    <Redirect to="/" />
+    <Redirect to={{ pathname: "/", state: { from: location } }} />
   );
 };
 
